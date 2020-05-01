@@ -1,9 +1,6 @@
 package com.zerobank.utilities;
 
-import com.zerobank.pages.AccountActivityPage;
-import com.zerobank.pages.AccountSummaryPage;
-import com.zerobank.pages.BasePage;
-import com.zerobank.pages.LoginPage;
+import com.zerobank.pages.*;
 import org.junit.Assert;
 
 public class PageObjects {
@@ -16,6 +13,8 @@ public class PageObjects {
                 return new AccountSummaryPage();
             case ConstantVariables.ACCOUNT_ACTIVITY:
                 return new AccountActivityPage();
+            case ConstantVariables.PAY_BILLS:
+                return new PayBillsPage();
             case ConstantVariables.BASE:
                 return new BasePage();
             default:

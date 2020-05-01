@@ -16,12 +16,18 @@ public class BasePage implements CommonMethods {
     @FindBy(xpath = "//div[@class='span12']/div/ul/li/a[contains(text(),'Account Activity')]")
     public WebElement tab_accountActivity;
 
+    @FindBy(xpath = "//div[@class='span12']/div/ul/li/a[contains(text(),'Pay Bills')]")
+    public WebElement tab_payBills;
+
 
     public void navigateTo(String page){
         page = page.toUpperCase();
         switch (page){
             case ConstantVariables.ACCOUNT_ACTIVITY:
                 tab_accountActivity.click();
+                break;
+            case ConstantVariables.PAY_BILLS:
+                tab_payBills.click();
                 break;
             default:
                 Assert.fail("There is no such " + page + " in this switch statement");

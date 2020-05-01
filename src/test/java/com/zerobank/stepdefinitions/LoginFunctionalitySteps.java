@@ -10,7 +10,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class LoginFunctionalitySteps {
-    @Then("{string} should contain {string} on {string} page")
+    @Then("{string} should/shouldn't contain {string} on {string} page")
     public void should_contain_on_page(String element, String expected, String page) {
         BasePage pageName = PageObjects.getPageObjects(page);
         pageName.validateResults(element, expected);
