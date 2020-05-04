@@ -11,6 +11,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 public class Driver {
     private Driver(){}
 
@@ -22,7 +25,10 @@ public class Driver {
             switch (browser.toLowerCase()){
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driverPool.set(new ChromeDriver());
+                    HashMap<String,Object> chromePrefs = new HashMap<>();
+                    chromePrefs.put("profile.default_content_settings.popups",0);
+                    chromePrefs.put("download.default_directory",System.getProperty("user.dir") + "/DownloadsUI");
+                    driverPool.set(new ChromeDriver(new ChromeOptions().setExperimentalOption("prefs",chromePrefs)));
                     break;
                 case "chrome-headless":
                     WebDriverManager.chromedriver().setup();

@@ -17,6 +17,25 @@ public class AccountSummaryPage extends BasePage{
     @FindBy(xpath = "(//table)[3]/thead/tr/th")
     public List<WebElement> hdr_tableColumns;
 
+    @FindBy(linkText = "Savings")
+    public WebElement lnk_savings;
+
+    @FindBy(linkText = "Brokerage")
+    public WebElement lnk_brokerage;
+
+    @FindBy(linkText = "Checking")
+    public WebElement lnk_checking;
+
+    @FindBy(linkText = "Credit Card")
+    public WebElement lnk_creditCard;
+
+    @FindBy(linkText = "Loan")
+    public WebElement lnk_loan;
+
+
+
+
+
     @Override
     public void validateResults(String element,String expected){
         element = element.toUpperCase();
@@ -41,6 +60,30 @@ public class AccountSummaryPage extends BasePage{
                 break;
             default:
                 Assert.fail("There is no such " + element + " in this switch statement");
+        }
+    }
+
+    @Override
+    public void clickButton(String link){
+        link = link.toUpperCase();
+        switch (link){
+            case ConstantVariables.SAVINGS:
+                lnk_savings.click();
+                break;
+            case ConstantVariables.BROKERAGE:
+                lnk_brokerage.click();
+                break;
+            case ConstantVariables.CHECKING:
+                lnk_checking.click();
+                break;
+            case ConstantVariables.CREDIT_CARD:
+                lnk_creditCard.click();
+                break;
+            case ConstantVariables.LOAN:
+                lnk_loan.click();
+                break;
+            default:
+                Assert.fail("There is no a " + link + " in this switch statement");
         }
     }
 

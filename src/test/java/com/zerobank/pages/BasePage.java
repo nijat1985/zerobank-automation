@@ -19,6 +19,11 @@ public class BasePage implements CommonMethods {
     @FindBy(xpath = "//div[@class='span12']/div/ul/li/a[contains(text(),'Pay Bills')]")
     public WebElement tab_payBills;
 
+    @FindBy(xpath = "//div[@class='span12']/div/ul/li/a[contains(text(),'Online Statements')]")
+    public WebElement tab_onlineStatements;
+
+
+
 
     public void navigateTo(String page){
         page = page.toUpperCase();
@@ -28,6 +33,9 @@ public class BasePage implements CommonMethods {
                 break;
             case ConstantVariables.PAY_BILLS:
                 tab_payBills.click();
+                break;
+            case ConstantVariables.ONLINE_STATEMENTS:
+                tab_onlineStatements.click();
                 break;
             default:
                 Assert.fail("There is no such " + page + " in this switch statement");

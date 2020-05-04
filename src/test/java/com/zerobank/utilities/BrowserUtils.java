@@ -1,6 +1,7 @@
 package com.zerobank.utilities;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.NoSuchElementException;
 import java.util.function.Function;
@@ -210,6 +212,54 @@ public class BrowserUtils {
         return difference;
     }
 
+    public static boolean isDatesInBetweenStartAndEndDate(String startDate, String endDate, List<String> dateList){
+        List<LocalDate> localDateList = convertListToDate(dateList);
+        int startYear = Integer.parseInt(startDate.split("-")[0]);
+        int startMonth = Integer.parseInt(startDate.split("-")[1]);
+        int startDay = Integer.parseInt(startDate.split("-")[2]);
+
+        int endYear = Integer.parseInt(endDate.split("-")[0]);
+        int endMonth = Integer.parseInt(endDate.split("-")[1]);
+        int endDay = Integer.parseInt(endDate.split("-")[2]);
+
+        LocalDate startDateLocal = LocalDate.of(startYear,startMonth,startDay);
+        LocalDate endDateLocal = LocalDate.of(endYear,endMonth,endDay);
+
+        boolean checkDates = true;
+
+        for (int i = 0; i < dateList.size(); i++) {
+            LocalDate dateFromList = localDateList.get(i);
+            boolean isAfterStartDateOrEqual = dateFromList.isAfter(startDateLocal) || dateFromList.isEqual(startDateLocal);
+            boolean isBeforeEndDateOrEqual = dateFromList.isBefore(endDateLocal) || dateFromList.isEqual(endDateLocal);
+            if(!(isAfterStartDateOrEqual && isBeforeEndDateOrEqual)){
+                System.out.println("date from list " + dateList.get(i));
+                System.out.println("startDateLocal = " + startDateLocal);
+
+                System.out.println("endDateLocal = " + endDateLocal);
+                System.out.println("!endDateLocal.isAfter(dateList.get(i)) = " + !endDateLocal.isAfter(localDateList.get(i)));
+                checkDates = false;
+                break;
+            }
+        }
+
+        return checkDates;
+    }
+
+    public static List<LocalDate> convertListToDate(List<String> list){
+        List<LocalDate> dateList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            int year = Integer.parseInt(list.get(i).split("-")[0]);
+            int month = Integer.parseInt(list.get(i).split("-")[1]);
+            int day = Integer.parseInt(list.get(i).split("-")[2]);
+
+            dateList.add(LocalDate.of(year,month,day));
+        }
+
+        return dateList;
+    }
+
+
     public static boolean isSortedAscendingOrder(List<WebElement> list){
         boolean isSorted = false;
         List<String> listText = new ArrayList<>();
@@ -218,7 +268,6 @@ public class BrowserUtils {
                 listText.add(element.getAttribute("textContent"));
             }
         }
-        //List<String> listText = getElementsText(list);
         List<String> listTextLowercase = new ArrayList<>();
 
         for (int i = 0; i < listText.size(); i++) {
@@ -243,7 +292,6 @@ public class BrowserUtils {
                 listText.add(element.getAttribute("textContent"));
             }
         }
-        //List<String> listText = getElementsText(list);
         List<String> listTextLowercase = new ArrayList<>();
 
         for (int i = 0; i < listText.size(); i++) {
@@ -259,6 +307,51 @@ public class BrowserUtils {
         return isSorted;
     }
 
+    public static boolean isListContainsValue(List<WebElement> list, String value){
+        boolean isContins = true;
+        if (list.size()<1){
+            return false;
+        }
+        List<String> txtList = getElementsText(list);
+        for (String each : txtList){
+            System.out.println(each + "  " + value);
+            if (!each.contains(value)){
+                isContins = false;
+                break;
+            }
+        }
+        return isContins;
+    }
+
+    public static boolean isListEmpty(List<WebElement> list){
+        boolean isEmpty = false;
+        int sum = 0;
+
+        List<String> txt_list = getElementsText(list);
+        for(String each : txt_list){
+            sum += each.length();
+        }
+        isEmpty = sum > 0;
+
+        return isEmpty;
+    }
+
+
+    public static boolean isListContainsList(List<String> listCheck, List<WebElement> listContains){
+        List<String> listContainsTxt = getElementsText(listContains);
+        boolean isContains = false;
+        int count = 0;
+        for (int i = 0; i < listCheck.size(); i++) {
+            for (int j = 0; j < listContainsTxt.size(); j++) {
+                if (listCheck.get(i).contains(listContainsTxt.get(j))){
+                    count++;
+                }
+            }
+        }
+        isContains = count >= listCheck.size();
+
+        return isContains;
+    }
 
 //    /**
 //     * @param name screenshot name

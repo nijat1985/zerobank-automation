@@ -34,7 +34,7 @@ public class LoginFunctionalitySteps {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
     }
 
-    @When("user clicks on {string} button on {string} page")
+    @When("user clicks on {string} button/link on {string} page")
     public void user_clicks_on_button_on_page(String button, String page) {
         BasePage pageName = PageObjects.getPageObjects(page);
         pageName.clickButton(button);

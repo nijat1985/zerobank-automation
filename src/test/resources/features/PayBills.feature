@@ -1,3 +1,4 @@
+@smoke @regression
 Feature: Pay bills functionality
 
   Background:
@@ -5,7 +6,7 @@ Feature: Pay bills functionality
     When user enters "username" as "user_username" on "Login" page
     And user enters "password" as "user_password" on "Login" page
     And user clicks on "login" button on "Login" page
-    When user navigates to "Pay Bills" page
+    When user navigates to "Pay Bills" "page"
 
 
   Scenario: Pay Bills page should have the title Zero – Pay Bills.
@@ -22,7 +23,6 @@ Feature: Pay bills functionality
     Then "Message" should contain "The payment was successfully submitted." on "Pay Bills" page
 
 
-
   Scenario Outline: When user tries to make a payment without entering the amount or date,
   Please fill out this field. message should be displayed.
     When user enters "payee" as "Bank of America" on "Pay Bills" page
@@ -30,12 +30,11 @@ Feature: Pay bills functionality
     And user enters "amount" as "<amount>" on "Pay Bills" page
     And user enters "date" as "<date>" on "Pay Bills" page
     And user clicks on "pay" button on "Pay Bills" page
-    Then "Empty field message" should contain "Please fill out this field." on "Pay Bills" page
+    Then "<message>" should contain "Please fill out this field." on "Pay Bills" page
     Examples:
-      | amount | date       |
-      |        | 05/01/2020 |
-      | 10     |            |
-
+      | amount | date       | message                    |
+      |        | 05/01/2020 | Amount empty field message |
+      | 10     |            | Date empty field message   |
 
 
   Scenario Outline: Amount field should not accept alphabetical or special characters.
@@ -50,13 +49,13 @@ Feature: Pay bills functionality
       | dd     |
       | /      |
 
-  @wip
-   Scenario: Date field should not accept alphabetical characters.
-     When user enters "payee" as "Bank of America" on "Pay Bills" page
-     And user enters "account" as "Checking" on "Pay Bills" page
-     And user enters "amount" as "15" on "Pay Bills" page
-     And user enters "date" as "dd" on "Pay Bills" page
-     And user clicks on "pay" button on "Pay Bills" page
-     Then "Empty field message" should contain "Please fill out this field." on "Pay Bills" page
+
+  Scenario: Date field should not accept alphabetical characters.
+    When user enters "payee" as "Bank of America" on "Pay Bills" page
+    And user enters "account" as "Checking" on "Pay Bills" page
+    And user enters "amount" as "15" on "Pay Bills" page
+    And user enters "date" as "dd" on "Pay Bills" page
+    And user clicks on "pay" button on "Pay Bills" page
+    Then "Date empty field message" should contain "Please fill out this field." on "Pay Bills" page
 
 
