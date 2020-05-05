@@ -50,7 +50,7 @@ public class StatementsAndDocumentsSteps {
     @Then("the downloaded file name should contain {string}")
     public void the_downloaded_file_name_should_contain(String nameOfTheFile) {
         try {
-            file = new File(System.getProperty("user.dir")+"/DownloadsUI");
+            file = new File(System.getProperty("user.dir")+"/src/DownloadsUI");
             files = file.listFiles();
             boolean nameCheck = false;
             for (File each:files){
@@ -63,7 +63,7 @@ public class StatementsAndDocumentsSteps {
             }
             Assert.assertTrue(nameCheck);
         }finally {
-
+            System.out.println("See what happened");
         }
     }
 
