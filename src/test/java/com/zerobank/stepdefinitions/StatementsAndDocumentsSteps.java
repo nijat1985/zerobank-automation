@@ -41,7 +41,7 @@ public class StatementsAndDocumentsSteps {
         for (WebElement each: listOfStatements){
             if (each.getText().equals(nameOfStatement)){
                 each.click();
-                BrowserUtils.wait(3);
+                BrowserUtils.wait(5);
                 break;
             }
         }
