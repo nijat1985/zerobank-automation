@@ -26,7 +26,7 @@ public class Driver {
                     WebDriverManager.chromedriver().setup();
                     HashMap<String,Object> chromePrefs = new HashMap<>();
                     chromePrefs.put("profile.default_content_settings.popups",0);
-                    chromePrefs.put("download.default_directory",System.getProperty("user.dir") + "/DownloadsUI");
+                    chromePrefs.put("download.default_directory",System.getProperty("user.dir") + "/src/DownloadsUI");
                     driverPool.set(new ChromeDriver(new ChromeOptions().setExperimentalOption("prefs",chromePrefs)));
                     break;
                 case "chrome-headless":
